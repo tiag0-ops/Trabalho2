@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Guia Turístico de Lisboa - Início</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <!-- Cabeçalho Principal -->
@@ -15,9 +15,9 @@
     <nav>
         <p>
             <strong>Navegação:</strong> |
-            <b>Início</b> |
-            <a href="locais.html">Locais a Visitar</a> |
-            <a href="gastronomia.html">Gastronomia Típica</a> |
+            <a href="{{ url_for('index') }}">Início</a> |
+            <a href="{{ url_for('locais') }}">Locais a Visitar</a> |
+            <a href="{{ url_for('gastronomia') }}">Gastronomia Típica</a> |
         </p>
     </nav>
     <hr>
@@ -26,9 +26,7 @@
     <h2>Sobre a Cidade</h2>
     <p>Lisboa é a capital e a maior cidade de Portugal. Localizada na foz do Rio Tejo, combina uma história secular com modernidade e uma vida cultural vibrante.</p>
     <a href="https://pt.wikipedia.org/wiki/Lisboa" target="_blank">
-        <img src="https://images.unsplash.com/photo-1585208798174-6cedd86e019a?w=600" alt="Vista
-Panorâmica de Lisboa" alt="Vista
-Panorâmica de Lisboa"" width="500" alt="Vista Panorâmica de Lisboa">
+        <img src="https://images.unsplash.com/photo-1585208798174-6cedd86e019a?w=600" width="500" alt="Vista Panorâmica de Lisboa">
     </a>
     <p><small>(Clica na fotografia para ler o artigo completo na Wikipédia)</small></p>
 
@@ -36,7 +34,7 @@ Panorâmica de Lisboa"" width="500" alt="Vista Panorâmica de Lisboa">
     <ul>
         <li><strong>População:</strong> Cerca de 545.000 habitantes na cidade.</li>
         <li><strong>Língua Oficial:</strong> Português.</li>
-        <li><strong>Moeda:</strong>HTM Euro (€).</li>
+        <li><strong>Moeda:</strong> Euro (€).</li>
         <li><strong>Clima:</strong> Mediterrânico, com mais de 2.900 horas de sol por ano.</li>
     </ul>
 
@@ -45,8 +43,8 @@ Panorâmica de Lisboa"" width="500" alt="Vista Panorâmica de Lisboa">
     
     <p>Explora as nossas secções para planeares a tua visita:</p>
     <ul class="lista-seccoes">
-        <li><a href="locais.html">Conhece os melhores monumentos e bairros &rarr;</a></li>
-        <li><a href="gastronomia.html">Descobre os pratos e doces tradicionais &rarr;</a></li>
+        <li><a href="{{ url_for('locais') }}">Conhece os melhores monumentos e bairros &rarr;</a></li>
+        <li><a href="{{ url_for('gastronomia') }}">Descobre os pratos e doces tradicionais &rarr;</a></li>
     </ul>
 </body>
 </html>

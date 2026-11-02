@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Guia de Lisboa - Gastronomia Típica</title>
-    <link rel="stylesheet" href="style-gastro.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style-gastro.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -14,9 +14,9 @@
     </header>
     
     <nav class="nav-container">
-        <a href="index.html">Início</a>
-        <a href="locais.html">Locais a Visitar</a>
-        <a href="gastronomia.html" class="active">Gastronomia Típica</a>
+        <a href="{{ url_for('index') }}">Início</a>
+        <a href="{{ url_for('locais') }}">Locais a Visitar</a>
+        <a href="{{ url_for('gastronomia') }}" class="active">Gastronomia Típica</a>
     </nav>
     
     <main class="container">
@@ -108,7 +108,7 @@
     </main>
 
     <footer>
-        <p><a href="index.html">&larr; Voltar à Página Principal</a> | <a href="locais.html">Voltar aos Locais a Visitar</a></p>
+        <p><a href="{{ url_for('index') }}">&larr; Voltar à Página Principal</a> | <a href="{{ url_for('locais') }}">Voltar aos Locais a Visitar</a></p>
     </footer>
 </body>
 </html>
