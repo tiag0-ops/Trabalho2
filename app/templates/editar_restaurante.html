@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Restaurante - Guia de Lisboa</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='gastronomia.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <header class="hero">
+        <div class="badge-tag">Atualização de Dados</div>
+        <h1>Editar Restaurante</h1>
+        <p class="subtitle">Modifica os dados do restaurante selecionado na base de dados.</p>
+    </header>
+
+    <nav class="nav-container">
+        <a href="{{ url_for('index') }}">Início</a>
+        <a href="{{ url_for('locais') }}">Locais a Visitar</a>
+        <a href="{{ url_for('gastronomia') }}">Gastronomia Típica</a>
+        <a href="{{ url_for('restaurantes') }}">Restaurantes</a>
+    </nav>
+
+    <main class="container">
+        <section class="form-section edit-section">
+            <div class="form-card edit-card">
+                <div class="card-header">
+                    <h2>{{ restaurante.nome }}</h2>
+                    <p>Altera os campos necessários e clica em Guardar Alterações.</p>
+                </div>
+                <form method="POST" class="styled-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="nome">Nome do Restaurante</label>
+                            <input type="text" id="nome" name="nome" value="{{ restaurante.nome }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="zona">Zona / Bairro</label>
+                            <input type="text" id="zona" name="zona" value="{{ restaurante.zona }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="especialidade">Especialidade Gastronómica</label>
+                            <input type="text" id="especialidade" name="especialidade" value="{{ restaurante.especialidade }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="preco">Gama de Preço</label>
+                            <select id="preco" name="preco" required>
+                                <option value="Barato" {% if restaurante.preco == 'Barato' %}selected{% endif %}>Barato (€)</option>
+                                <option value="Médio" {% if restaurante.preco == 'Médio' %}selected{% endif %}>Médio (€€)</option>
+                                <option value="Caro" {% if restaurante.preco == 'Caro' %}selected{% endif %}>Caro (€€€)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-actions edit-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <span>💾 Guardar Alterações</span>
+                        </button>
+                        <a href="{{ url_for('restaurantes') }}" class="btn btn-secondary">
+                            <span>✖ Cancelar</span>
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p><a href="{{ url_for('restaurantes') }}">&larr; Voltar à Gestão de Restaurantes</a></p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Guia de Lisboa - Gestão de Restaurantes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='gastronomia.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <header class="hero">
+        <div class="badge-tag">Base de Dados</div>
+        <h1>Gestão de Restaurantes</h1>
+        <p class="subtitle">Adiciona, consulta e gere os restaurantes da capital na base de dados.</p>
+    </header>
+
+    <nav class="nav-container">
+        <a href="{{ url_for('index') }}">Início</a>
+        <a href="{{ url_for('locais') }}">Locais a Visitar</a>
+        <a href="{{ url_for('gastronomia') }}">Gastronomia Típica</a>
+        <a href="{{ url_for('restaurantes') }}" class="active">Restaurantes</a>
+    </nav>
+
+    <main class="container">
+        <!-- Secção de Formulário de Adição -->
+        <section class="form-section">
+            <div class="form-card">
+                <div class="card-header">
+                    <h2>Adicionar Novo Restaurante</h2>
+                    <p>Preenche as informações abaixo para registar um novo restaurante.</p>
+                </div>
+                <form method="POST" class="styled-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="nome">Nome do Restaurante</label>
+                            <input type="text" id="nome" name="nome" placeholder="Ex: Solar dos Presuntos" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="zona">Zona / Bairro</label>
+                            <input type="text" id="zona" name="zona" placeholder="Ex: Baixa / Rossio" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="especialidade">Especialidade Gastronómica</label>
+                            <input type="text" id="especialidade" name="especialidade" placeholder="Ex: Bacalhau e Mariscos" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="preco">Gama de Preço</label>
+                            <select id="preco" name="preco" required>
+                                <option value="" disabled selected>Seleciona uma opção...</option>
+                                <option value="Barato">Barato (€)</option>
+                                <option value="Médio">Médio (€€)</option>
+                                <option value="Caro">Caro (€€€)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <span>➕ Guardar Restaurante</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Secção da Tabela de Restaurantes -->
+        <section class="table-section">
+            <div class="section-heading-row">
+                <h2 class="section-title">Restaurantes Registados na Base de Dados</h2>
+                <span class="count-badge">{{ restaurantes|length }} restaurante(s)</span>
+            </div>
+
+            <div class="table-card">
+                <table class="modern-table">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Zona</th>
+                            <th>Especialidade</th>
+                            <th>Gama de Preço</th>
+                            <th class="actions-header">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in restaurantes %}
+                        <tr>
+                            <td class="restaurant-name"><strong>{{ r.nome }}</strong></td>
+                            <td><span class="location-badge">📍 {{ r.zona }}</span></td>
+                            <td>{{ r.especialidade }}</td>
+                            <td>
+                                {% if r.preco == 'Barato' %}
+                                    <span class="price-pill price-1">€ Barato</span>
+                                {% elif r.preco == 'Médio' %}
+                                    <span class="price-pill price-2">€€ Médio</span>
+                                {% elif r.preco == 'Caro' %}
+                                    <span class="price-pill price-3">€€€ Caro</span>
+                                {% else %}
+                                    <span class="price-pill">{{ r.preco }}</span>
+                                {% endif %}
+                            </td>
+                            <td class="actions-cell">
+                                <a href="{{ url_for('editar_restaurante', id=r.id) }}" class="action-btn btn-edit" title="Editar">
+                                    <button type="button" class="btn-subtle btn-edit">✏️ Editar</button>
+                                </a>
+                                <form action="{{ url_for('apagar_restaurante', id=r.id) }}" method="POST" class="inline-form" onsubmit="return confirm('Tens a certeza que queres apagar o restaurante {{ r.nome }}?');">
+                                    <button type="submit" class="btn-subtle btn-delete" title="Apagar">🗑️ Apagar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="5" class="empty-state">
+                                <p>Nenhum restaurante registado ainda. Utiliza o formulário acima para adicionar o primeiro!</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p><a href="{{ url_for('gastronomia') }}">&larr; Ver Página de Gastronomia</a> | <a href="{{ url_for('index') }}">Página Principal</a></p>
+    </footer>
+</body>
+</html>
